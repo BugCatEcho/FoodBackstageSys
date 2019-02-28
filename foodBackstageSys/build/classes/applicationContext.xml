@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		    http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+		    http://www.springframework.org/schema/context
+		    http://www.springframework.org/schema/context/spring-context-3.2.xsd
+		    http://www.springframework.org/schema/aop
+		    http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
+		    http://www.springframework.org/schema/tx
+		    http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
+		    http://www.springframework.org/schema/mvc
+		    http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd">
+
+	<!-- 目的：为了项目启动时，cn.cong内的所有bean就已经创建完毕 -->
+	<context:component-scan
+		base-package="com.catecho.foodbackstagesys" />
+
+	<bean id="dataSource"
+		class="org.apache.tomcat.dbcp.dbcp2.BasicDataSource">
+		<property name="driverClassName"
+			value="com.mysql.cj.jdbc.Driver"/>
+		<property name="username" value="root"/>
+		<property name="password" value="8520"/>
+		<property name="url" value="jdbc:mysql://127.0.0.1:3306/test?serverTimezone=GMT%2B8&amp;useUnicode=true&amp;characterEncoding=UTF-8&amp;useSSL=false
+"/>
+	</bean>
+
+	<!-- 载入hibernate配置 -->
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+		<!-- <property name="configLocations"> <value>classpath:hibernate.cfg.xml</value> 
+			</property> -->
+		<property name="dataSource" ref="dataSource"></property>
+		<property name="packagesToScan">
+			<list>
+				<value>com/catecho/foodbackstagesys/Entity</value>
+			</list>
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
+				<prop key="hibernate.show_sql">false</prop>
+				<prop key="hibernate.format_sql">true</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+		<property name="dataSource" ref="dataSource"></property>
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean><!-- 创建事务 -->
+
+	<tx:annotation-driven />
+
+</beans>

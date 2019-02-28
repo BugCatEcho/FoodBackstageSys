@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+    "http://struts.apache.org/dtds/struts-2.5.dtd">
+<struts>
+	<constant name="struts.devMode" value="true" />
+	<package name="default" extends="json-default" namespace="/">
+		<global-results>
+			<result name="login2">index.jsp</result>
+		</global-results>
+		<action name="castle_*" class="castleAction" method="{1}">
+			<result name="login1">/WEB-INF/lib/jsp/CastleManagement.jsp</result>
+			<allowed-methods>login</allowed-methods><!-- 记得添加允许的Action！！！！！！ -->
+		</action>
+		<action name="chef_*" class="chefAction" method="{1}">
+			<result name="login1">/WEB-INF/lib/jsp/ChefManagement.jsp</result>
+			<result name="querypagejson1" type="json">
+				<param name="root">map</param>
+			</result>
+			<result name="addonejson1" type="json">
+				<param name="root">map</param>
+			</result>
+			<result name="updataonejson1" type="json">
+				<param name="root">map</param>
+			</result>
+			<result name="deljson1" type="json">
+				<param name="root">map</param>
+			</result>
+			<result name="queryonejson1" type="json">
+				<param name="root">map</param>
+			</result>
+			<allowed-methods>login,querypagejson,addonejson,updataonejson,deljson,queryonejson</allowed-methods><!-- 
+				记得添加允许的Action！！！！！！ -->
+		</action>
+		<action name="bill_*" class="billAction" method="{1}">
+			<result name="showpagejson1" type="json">
+				<param name="root">json</param>
+			</result>
+			<allowed-methods>showpagejson,addonejson</allowed-methods><!-- 记得添加允许的Action！！！！！！ -->
+		</action>
+		<action name="food_*" class="foodAction" method="{1}">
+			<result name="querypage1" type="json">
+				<param name="root">map</param>
+			</result>
+			<result name="queryone1" type="json">
+				<param name="root">map</param>
+			</result>
+			<result name="delonejson1" type="json">
+				<param name="root">map</param>
+			</result>
+			<result name="updataonejson1" type="json">
+				<param name="root">map</param>
+			</result>
+			<result name="querypagebychefjson1" type="json">
+				<param name="root">map</param>
+			</result>
+			<result name="addonejson1" type="json">
+				<param name="root">map</param>
+			</result>
+			<allowed-methods>querypagejson,updataonejson,delonejson,queryonejson,querypagebychefjson,addonejson</allowed-methods><!-- 
+				记得添加允许的Action！！！！！！ -->
+		</action>
+		<action name="type_*" class="typeAction" method="{1}">
+			<result name="queryalljson1" type="json">
+				<param name="root">map</param>
+			</result>
+			<allowed-methods>queryalljson</allowed-methods><!-- 记得添加允许的Action！！！！！！ -->
+		</action>
+		<action name="user_*" class="userAction" method="{1}">
+			<result name="querypagejson1" type="json">
+				<param name="root">map</param>
+			</result>
+			<result name="updataonejson1" type="json">
+				<param name="root">map</param>
+			</result>
+			<result name="queryonejson1" type="json">
+				<param name="root">map</param>
+			</result>
+			<result name="delonejson1" type="json">
+				<param name="root">map</param>
+			</result>
+			<result name="addonejson1" type="json">
+				<param name="root">map</param>
+			</result>
+			<allowed-methods>querypagejson,addonejson,delonejson,updataonejson,queryonejson</allowed-methods><!-- 
+				记得添加允许的Action！！！！！！ -->
+		</action>
+	</package>
+</struts>
+
